@@ -1,0 +1,7 @@
+     To Do List:
+     1. Output instructions
+     2. Create game world using a 2D string array (5 x 5 Box)
+     3. Add hazards to game world and make them so they interact with the player (Pit, bats, wumpus) 
+     4. Create system that manuevers the player through the game world and keeps track of where the player goes.
+     5. Create a way for the player to shoot arrows in the direction of the wumpus and if the player misses the wumpus changes location (5 arrows)
+     6. Make it so when a arrow is sent to the location of the wumpus the player wins and outputs a ending statement
