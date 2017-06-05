@@ -1,4 +1,8 @@
 
+import java.util.Random;
+
+
+
 class HuntTheWumpus
 {
   public static void main (String[] args)
@@ -42,20 +46,20 @@ class HuntTheWumpus
       }
     }
     while (repeat == 1);
-  
-  
-  
+    
+    
+    
 //Making the game world and filling it 
-  
-  // 0 1 2 3 4 
-  //0  
-  //1
-  //2
-  //3
-  //4
-  
-   String[][] gameWorld = new String[5][5];
-   // initializes board with locations in each index
+    
+    // 0 1 2 3 4 
+    //0  
+    //1
+    //2
+    //3
+    //4
+    
+    String[][] gameWorld = new String[5][5];
+    // initializes board with locations in each index
     gameWorld[0][0]=  "you are at 0,0" ; 
     gameWorld[0][1] = "you are at 0,1" ;
     gameWorld[0][2] = "you are at 0,2" ;
@@ -87,11 +91,39 @@ class HuntTheWumpus
     gameWorld[4][4] = "you are at 2,4" ;
     
     //creates random spawn location for wumpus
-      int wumpRowInd;
-      int wumpColInd; 
+    int wumpRowInd = randInt(0,4);
+    int wumpColInd = randInt(0,4); 
+    gameWorld[wumpRowInd][wumpColInd] = gameWorld[wumpRowInd][wumpColInd].concat(" you were eaten by a wumpus!"); 
+ 
+    //creates random spawn location for pit hazard
+   do
+   {
+    int pitRowInd = randInt(0,4);
+    int pitColInd = randInt(0,4); 
+    gameWorld[pitRowInd][pitColInd] =  gameWorld[pitRowInd][pitColInd].concat(" you fell into a pit!"); 
+   }while (gameWorld[pitRowInd][pitColInd] ==  gameWorld[wumpRowInd][wumpColInd]);
+    
+
+
+//creates hazard warning when player approaches hazard (within one place away)
+    //wumpus warning
+   /* if ();
+    {
       
+    }
+    //pit warning
+    if ();
+    {
+      
+    }
+    //bat warning
+    if ();
+    {
+      
+    }
+    */
   }   
-    public static void instructions()
+  public static void instructions()
   {
     System.out.println("\tInstructions:"); 
     System.out.println("\tHunt the wumpus is a word based, hide and seek formatted game. You must enter a system of caves which create a 5 x 5 square"); 
@@ -99,7 +131,15 @@ class HuntTheWumpus
     System.out.println("\tplayer a text warning when you are next to one. These hazards include a pit which you will fell a breeze when near, Bats"); 
     System.out.println("\twhich will transport you to a new location in the cave and is alerted by the flapping of wings, and finally the wumpus which"); 
     System.out.println("\tomits a horrible smell when you get close."); 
+  }  
+  public static int randInt(int min, int max)
+  {
+    Random rand = new Random();
+    
+    int randomNum = rand.nextInt((max - min) + 1) + min;
+    
+    return randomNum;
   }
   
+  
 } 
-
