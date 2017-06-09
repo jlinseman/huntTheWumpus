@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 
@@ -57,22 +56,20 @@ class HuntTheWumpus
     //2
     //3
     //4
-    
+       
     String[][] gameWorld = new String[5][5];
-    // initializes board with locations in each index
-  for (int i = 0; i <= 4; i++) {
+    // initializes bored with x in each location
+      for (int i = 0; i <= 4; i++) {
   for (int j = 0; j <= 4; j++) {
-    gameWorld[i][j] = "you are at " + i + "," + j;
+    gameWorld[i][j] = "X";
   }
  }
-    
-    
-    
 
+      
     //creates random spawn location for wumpus
     int wumpRowInd = randInt(0,4);
     int wumpColInd = randInt(0,4); 
-    gameWorld[wumpRowInd][wumpColInd] = gameWorld[wumpRowInd][wumpColInd].concat(" you were eaten by a wumpus!"); 
+    gameWorld[wumpRowInd][wumpColInd] = gameWorld[wumpRowInd][wumpColInd] = "W"; 
  
     //creates random spawn location for pit hazard
 int done = 0;
@@ -88,7 +85,7 @@ do
       done = 1;
     }
 } while (done == 0);
-    gameWorld[pitRowInd][pitColInd] =  gameWorld[pitRowInd][pitColInd].concat(" you fell into a pit!"); 
+    gameWorld[pitRowInd][pitColInd] =  gameWorld[pitRowInd][pitColInd] = "P";
 
 //creates random spawn location for bat hazard
 done = 0;
@@ -111,7 +108,7 @@ do
       done = 1;
     }
 } while (done == 0);
-    gameWorld[batRowInd][batColInd] =  gameWorld[batRowInd][batColInd].concat(" you were carried away by bats!");
+    gameWorld[batRowInd][batColInd] =  gameWorld[batRowInd][batColInd] = "B";
     
 //Selects random spawn location for player        
     done = 0;
@@ -138,7 +135,7 @@ do
       done = 1;
     }
 } while (done == 0);
-
+gameWorld[playerRowInd][playerColInd] = gameWorld[playerRowInd][playerColInd] = "O";
 
     
 //creates hazard warning when player approaches hazard (within one place away)
@@ -159,15 +156,10 @@ do
     }
     */
 
-
-//shows whats on the board 
-for (int i = 0; i <= 4; i++) {
-  for (int j = 0; j <= 4; j++) {
-     System.out.println(gameWorld[i][j]);
-                                }
-}
-System.out.println(gameWorld[playerRowInd][playerColInd]);
+print2DArray (gameWorld);
   }
+ 
+  // outprints instructions 
   public static void instructions()
   {
     System.out.println("\tInstructions:"); 
@@ -177,6 +169,8 @@ System.out.println(gameWorld[playerRowInd][playerColInd]);
     System.out.println("\twhich will transport you to a new location in the cave and is alerted by the flapping of wings, and finally the wumpus which"); 
     System.out.println("\tomits a horrible smell when you get close."); 
   }  
+
+  // random number generator
   public static int randInt(int min, int max)
   {
     Random rand = new Random();
@@ -185,7 +179,21 @@ System.out.println(gameWorld[playerRowInd][playerColInd]);
     
     return randomNum;
   }
-  
-  
 
+  
+  // Method to print 2D array
+  public static void print2DArray (String[][] gameWorld)
+  {
+    int numRow = gameWorld.length;
+   int numCol = gameWorld[0].length;
+    
+    for (int i = 0; i < numRow; i++) {
+    for (int j =0; j < numCol; j++) {
+     
+      System.out.print(gameWorld[i][j] + "\t");
+    }
+    System.out.println("");
+    System.out.println("");
+  }
+  }
 }
