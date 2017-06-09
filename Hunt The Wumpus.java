@@ -60,51 +60,87 @@ class HuntTheWumpus
     
     String[][] gameWorld = new String[5][5];
     // initializes board with locations in each index
-    gameWorld[0][0]=  "you are at 0,0" ; 
-    gameWorld[0][1] = "you are at 0,1" ;
-    gameWorld[0][2] = "you are at 0,2" ;
-    gameWorld[0][3] = "you are at 0,3" ;
-    gameWorld[0][4] = "you are at 0,4" ;
+  for (int i = 0; i <= 4; i++) {
+  for (int j = 0; j <= 4; j++) {
+    gameWorld[i][j] = "you are at " + i + "," + j;
+  }
+ }
     
-    gameWorld[1][0] = "you are at 1,0"; 
-    gameWorld[1][1] = "you are at 1,1" ;
-    gameWorld[1][2] = "you are at 1,2" ;
-    gameWorld[1][3] = "you are at 1,3" ;
-    gameWorld[1][4] = "you are at 1,4" ;
     
-    gameWorld[2][0] = "you are at 2,0" ;
-    gameWorld[2][1] = "you are at 2,1" ;
-    gameWorld[2][2] = "you are at 2,2" ;
-    gameWorld[2][3] = "you are at 2,3" ;
-    gameWorld[2][4] = "you are at 2,4" ;
     
-    gameWorld[3][0] = "you are at 3,0" ;
-    gameWorld[3][1] = "you are at 3,1" ;
-    gameWorld[3][2] = "you are at 3,2" ;
-    gameWorld[3][3] = "you are at 3,3" ;
-    gameWorld[3][4] = "you are at 3,4" ;
-    
-    gameWorld[4][0] = "you are at 4,0" ;
-    gameWorld[4][1] = "you are at 2,1" ;
-    gameWorld[4][2] = "you are at 2,2" ;
-    gameWorld[4][3] = "you are at 2,3" ;
-    gameWorld[4][4] = "you are at 2,4" ;
-    
+
     //creates random spawn location for wumpus
     int wumpRowInd = randInt(0,4);
     int wumpColInd = randInt(0,4); 
     gameWorld[wumpRowInd][wumpColInd] = gameWorld[wumpRowInd][wumpColInd].concat(" you were eaten by a wumpus!"); 
  
     //creates random spawn location for pit hazard
-   do
-   {
-    int pitRowInd = randInt(0,4);
-    int pitColInd = randInt(0,4); 
+int done = 0;
+ int pitRowInd = 0;
+   int pitColInd = 0;
+
+do
+{
+    pitRowInd = randInt(0,4);
+    pitColInd = randInt(0,4); 
+    if ((pitRowInd != wumpRowInd) || (pitColInd != wumpColInd))
+    {
+      done = 1;
+    }
+} while (done == 0);
     gameWorld[pitRowInd][pitColInd] =  gameWorld[pitRowInd][pitColInd].concat(" you fell into a pit!"); 
-   }while (gameWorld[pitRowInd][pitColInd] ==  gameWorld[wumpRowInd][wumpColInd]);
+
+//creates random spawn location for bat hazard
+done = 0;
+   int batRowInd = 0;
+   int batColInd = 0;
+do 
+{
+   batRowInd = randInt(0,4);
+   batColInd = randInt(0,4); 
+       if ((batRowInd == wumpRowInd) && (batColInd == wumpColInd))
+    {
+      done = 0;
+    }
+    else if ((batRowInd == pitRowInd) && (batColInd == pitColInd))
+    {
+     done = 0; 
+    }
+    else 
+    {
+      done = 1;
+    }
+} while (done == 0);
+    gameWorld[batRowInd][batColInd] =  gameWorld[batRowInd][batColInd].concat(" you were carried away by bats!");
     
+//Selects random spawn location for player        
+    done = 0;
+   int playerRowInd = 0;
+   int playerColInd = 0;
+    do
+    {
+   playerRowInd = randInt(0,4);
+   playerColInd = randInt(0,4); 
+       if ((playerRowInd == wumpRowInd) && (playerColInd == wumpColInd))
+    {
+      done = 0;
+    }
+    else if ((playerRowInd == pitRowInd) && (playerColInd == pitColInd))
+    {
+     done = 0; 
+    }
+    else if((playerRowInd == batRowInd) && (playerColInd == batColInd))
+    {
+      done = 0;
+    }
+    else
+    {
+      done = 1;
+    }
+} while (done == 0);
 
 
+    
 //creates hazard warning when player approaches hazard (within one place away)
     //wumpus warning
    /* if ();
@@ -122,7 +158,16 @@ class HuntTheWumpus
       
     }
     */
-  }   
+
+
+//shows whats on the board 
+for (int i = 0; i <= 4; i++) {
+  for (int j = 0; j <= 4; j++) {
+     System.out.println(gameWorld[i][j]);
+                                }
+}
+System.out.println(gameWorld[playerRowInd][playerColInd]);
+  }
   public static void instructions()
   {
     System.out.println("\tInstructions:"); 
@@ -142,4 +187,5 @@ class HuntTheWumpus
   }
   
   
-} 
+
+}
