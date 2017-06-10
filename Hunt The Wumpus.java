@@ -8,16 +8,6 @@ class HuntTheWumpus
   {
     
     
-    /*
-     To Do List:
-     1. Output instructions 
-     2. Create game world using a 2D string array (5 x 5 Box) Complete
-     3. Add hazards to game world and make them so they interact with the player (Pit, bats, wumpus) Complete
-     4. Create system that manuevers the player through the game world. Complete
-     5. Create a way for the player to shoot arrows in the direction of the wumpus and if the player misses the wumpus changes location (5 arrows)
-     6. Make it so when a arrow is sent to the location of the wumpus the player wins and outputs a ending statement
-     */
-    
     //making the main menu
     String menuSelection; 
     System.out.println("\tHunt The Wumpus");  
@@ -163,8 +153,33 @@ do {
     //if you're on a bat, game over //
     
      if((playerRowInd == batRowInd) && (playerColInd == batColInd)) {
-      System.out.println("You've been eaten by a bat");
-      gameover = true; 
+      System.out.println("You've been carried away by giant bats");
+       do
+    {
+   playerRowInd = randInt(0,4);
+   playerColInd = randInt(0,4); 
+       if ((playerRowInd == wumpRowInd) && (playerColInd == wumpColInd))
+    {
+      done = 0;
+    }
+    else if ((playerRowInd == pitRowInd) && (playerColInd == pitColInd))
+    {
+     done = 0; 
+    }
+    else if((playerRowInd == batRowInd) && (playerColInd == batColInd))
+    {
+      done = 0;
+    }
+    else
+    {
+      done = 1;
+    }
+} while (done == 0);
+gameWorld[playerRowInd][playerColInd] = gameWorld[playerRowInd][playerColInd] = "O";
+
+      
+     
+      
     }
   //if statement that checks if shots were fired and if wumpus was hit //
      if(shotFired == true) {
@@ -318,12 +333,16 @@ do {
   // outprints instructions 
   public static void instructions()
   {
-    System.out.println("\tInstructions:"); 
-    System.out.println("\tHunt the wumpus is a word based, hide and seek formatted game. You must enter a system of caves which create a 5 x 5 square"); 
-    System.out.println("\tand hunt a mysterious creature called a wumpus, using 5 armor piercing arrows. All while avoiding hazards which give the"); 
-    System.out.println("\tplayer a text warning when you are next to one. These hazards include a pit which you will feel a breeze when near, Bats"); 
-    System.out.println("\twhich will transport you to a new location in the cave and is alerted by the flapping of wings, and finally the wumpus which"); 
-    System.out.println("\tomits a horrible smell when you get close."); 
+    System.out.println("Instructions:"); 
+    System.out.println("Hunt the wumpus is a text based, hide and seek formatted game. where the player must enter a system of caves which create a 5 x 5 square"); 
+    System.out.println("and hunt a mysterious creature called a wumpus(player position is identified using O), using 3 armor piercing arrows. All while avoiding hazards which give the"); 
+    System.out.println("player a text warning when you are next to one. These hazards include a pit which you will feel a breeze when near, Bats"); 
+    System.out.println("which will transport you to a new location in the cave and make a flapping noise when you approach them, and finally the wumpus which"); 
+    System.out.println("omits a horrible smell when you get close. To maneuver the cave use W to move up one space, A to move to the left one space,"); 
+    System.out.println("S to move downwards one space, and finally D to move to the right one space. Players can also enter Q to quit the game and"); 
+    System.out.println("V to turn the hazards visible. Players can also use the keys I to shoot upwards one space, J to shoot left one space, K to shoot downwards");
+    System.out.println("one space, and L to shoot right one space. "); 
+    
   }  
 
   // random number generator
