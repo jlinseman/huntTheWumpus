@@ -59,6 +59,11 @@ class HuntTheWumpus
           }
       }
 
+    //Declares variables for arrows  
+      int arrowRowInd = 5;
+      int arrowColInd = 5;
+      int arrowCount = 3; 
+      boolean shotFired = false;
       
     //creates random spawn location for wumpus
     int wumpRowInd = randInt(0,4);
@@ -161,7 +166,20 @@ do {
       System.out.println("You've been eaten by a bat");
       gameover = true; 
     }
-  
+  //if statement that checks if shots were fired and if wumpus was hit //
+     if(shotFired == true) {
+     shotFired = false;
+     if ((arrowRowInd == wumpRowInd) && (arrowColInd == wumpColInd)) {
+      System.out.println("congratulations you win!");
+       gameover = true; 
+     }
+     }
+     
+     if (arrowCount == 0) {
+      System.out.println("you have ran out of arrows!");
+       gameover = true; 
+     }
+     
     // if not gameover, upedate player position on board //
      if (!gameover) { 
         gameWorld[playerRowInd][playerColInd] = "O"; 
@@ -191,7 +209,6 @@ do {
       if ((Math.abs(playerRowInd - batRowInd) <= 1) && (Math.abs(playerColInd - batColInd) <= 1)) {
      System.out.println("you hear flapping!");
      }
-    
     }
  
     // if not game over, get a new keypress, otherwise you're dead //
@@ -261,19 +278,31 @@ do {
     //creates method to shoot arrows
     else if ( keypress.equals("I")) {
     // fire an arrow into the cell above //
-      
+      arrowRowInd = playerRowInd - 1;
+      arrowColInd = playerColInd;
+      arrowCount = arrowCount - 1;
+      shotFired = true;
     }  
     else if ( keypress.equals("J")) {
     // fire an arrow into the cell to the left //
-      
+      arrowRowInd = playerRowInd;
+      arrowColInd = playerColInd - 1;
+      arrowCount = arrowCount - 1;
+      shotFired = true;
     }  
     else if ( keypress.equals("K")) {
     // fire an arrow into the cell below //
-      
+            arrowRowInd = playerRowInd + 1;
+      arrowColInd = playerColInd;
+      arrowCount = arrowCount - 1;
+      shotFired = true;
     }  
     else if ( keypress.equals("L")) {
     // fire an arrow into the cell to the right //
-      
+            arrowRowInd = playerRowInd;
+      arrowColInd = playerColInd + 1;
+      arrowCount = arrowCount - 1;
+      shotFired = true;
     }  
              
              
@@ -334,6 +363,6 @@ do {
     }
     System.out.println("");
     System.out.println("");
-  }
+   }
   }
 }
