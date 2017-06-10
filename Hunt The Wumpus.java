@@ -10,10 +10,10 @@ class HuntTheWumpus
     
     /*
      To Do List:
-     1. Output instructions
-     2. Create game world using a 2D string array (5 x 5 Box)
-     3. Add hazards to game world and make them so they interact with the player (Pit, bats, wumpus) 
-     4. Create system that manuevers the player through the game world and keeps track of where the player goes.
+     1. Output instructions 
+     2. Create game world using a 2D string array (5 x 5 Box) Complete
+     3. Add hazards to game world and make them so they interact with the player (Pit, bats, wumpus) Complete
+     4. Create system that manuevers the player through the game world. Complete
      5. Create a way for the player to shoot arrows in the direction of the wumpus and if the player misses the wumpus changes location (5 arrows)
      6. Make it so when a arrow is sent to the location of the wumpus the player wins and outputs a ending statement
      */
@@ -49,21 +49,15 @@ class HuntTheWumpus
     
     
 //Making the game world and filling it 
-    
-    // 0 1 2 3 4 
-    //0  
-    //1
-    //2
-    //3
-    //4
+  
        
     String[][] gameWorld = new String[5][5];
-    // initializes bored with x in each location
+    // initializes board with x in each location
       for (int i = 0; i <= 4; i++) {
-  for (int j = 0; j <= 4; j++) {
-    gameWorld[i][j] = "X";
-  }
- }
+          for (int j = 0; j <= 4; j++) {
+             gameWorld[i][j] = "X";
+          }
+      }
 
       
     //creates random spawn location for wumpus
@@ -73,8 +67,8 @@ class HuntTheWumpus
  
     //creates random spawn location for pit hazard
 int done = 0;
- int pitRowInd = 0;
-   int pitColInd = 0;
+int pitRowInd = 0;
+int pitColInd = 0;
 
 do
 {
@@ -137,26 +131,159 @@ do
 } while (done == 0);
 gameWorld[playerRowInd][playerColInd] = gameWorld[playerRowInd][playerColInd] = "O";
 
-    
-//creates hazard warning when player approaches hazard (within one place away)
-    //wumpus warning
-   /* if ();
-    {
-      
-    }
-    //pit warning
-    if ();
-    {
-      
-    }
-    //bat warning
-    if ();
-    {
-      
-    }
-    */
+// *************** //
+// begin game play //
+// *************** //
 
-print2DArray (gameWorld);
+String keypress;
+boolean gameover = false;
+boolean visible = false;
+
+do {
+  
+   // if you're on the wompus, game over //
+    
+    if((playerRowInd == wumpRowInd) && (playerColInd == wumpColInd)) {
+      System.out.println("You've been eaten by the Wompus");
+      gameover = true; 
+    }
+    
+    // if you're in the pit, game over //
+    
+    if((playerRowInd == pitRowInd) && (playerColInd == pitColInd)) {
+      System.out.println("You fell in a pit");
+      gameover = true; 
+    }
+    
+    //if you're on a bat, game over //
+    
+     if((playerRowInd == batRowInd) && (playerColInd == batColInd)) {
+      System.out.println("You've been eaten by a bat");
+      gameover = true; 
+    }
+  
+    // if not gameover, upedate player position on board //
+     if (!gameover) { 
+        gameWorld[playerRowInd][playerColInd] = "O"; 
+      }
+     
+       print2DArray (gameWorld, visible);
+    
+    
+    
+    
+   
+    if (!gameover) {
+
+      
+    // output warning if you're near a wompus //
+    // output warning if your near a pit //
+    // output a warning if you're near a bat // 
+      
+      if ((Math.abs(playerRowInd - wumpRowInd) <= 1) && (Math.abs(playerColInd - wumpColInd) <= 1)) {
+     System.out.println("you smell something horrible!");
+    }
+     
+      if ((Math.abs(playerRowInd - pitRowInd) <= 1) && (Math.abs(playerColInd - pitColInd) <= 1)) {
+        System.out.println("you feel a breeze!");
+    }
+     
+      if ((Math.abs(playerRowInd - batRowInd) <= 1) && (Math.abs(playerColInd - batColInd) <= 1)) {
+     System.out.println("you hear flapping!");
+     }
+    
+    }
+ 
+    // if not game over, get a new keypress, otherwise you're dead //
+    
+    if (!gameover) {
+       keypress = In.getString();
+       keypress = keypress.toUpperCase(); 
+    }
+   
+    // "O" stands for 'over', because you are dead //
+    else {
+       keypress = "O";
+    } 
+    
+       
+    if(keypress.equals("Q")) { //creates user input to quit the game
+       gameover = true;  
+      }
+    else if (keypress.equals("O")) { //makes it so once the games over it doesnt prompt the user for more inputs
+      gameover = true; 
+      }
+      
+    else if (keypress.equals("V")) { //makes a way for the user to turn the bored visible revealing hazad locations
+      if (visible == true) {
+          visible = false;
+      }
+      else {
+          visible = true;
+      }
+     }
+//system to move player if possible and replace his previous position with a x
+    else if (keypress.equals("W")) { 
+    // move player up if you can //  
+      
+      if (playerRowInd != 0) {
+       // mark the spot you've come from with an X //
+       gameWorld[playerRowInd][playerColInd] = "X"; 
+       playerRowInd = playerRowInd - 1; 
+      }      
+    }
+    else if (keypress.equals("A")) {
+    // move player left if you can //  
+          if (playerColInd != 0) {
+       // mark the spot you've come from with an X //
+       gameWorld[playerRowInd][playerColInd] = "X"; 
+       playerColInd = playerColInd - 1; 
+      }      
+  
+    }
+    else if (keypress.equals("S")) {
+    // move player down if you can //  
+      if (playerRowInd != 4) {
+       // mark the spot you've come from with an X //
+       gameWorld[playerRowInd][playerColInd] = "X"; 
+       playerRowInd = playerRowInd + 1; 
+      }      
+    }
+     
+    else if (keypress.equals("D")) {
+    // move player right if you can //  
+      if (playerColInd != 4) {
+       // mark the spot you've come from with an X //
+       gameWorld[playerRowInd][playerColInd] = "X"; 
+       playerColInd = playerColInd + 1; 
+      }      
+    }
+    //creates method to shoot arrows
+    else if ( keypress.equals("I")) {
+    // fire an arrow into the cell above //
+      
+    }  
+    else if ( keypress.equals("J")) {
+    // fire an arrow into the cell to the left //
+      
+    }  
+    else if ( keypress.equals("K")) {
+    // fire an arrow into the cell below //
+      
+    }  
+    else if ( keypress.equals("L")) {
+    // fire an arrow into the cell to the right //
+      
+    }  
+             
+             
+      else {
+          System.out.println("incorrect key pressed");            
+      }
+} while (!gameover);
+
+  System.out.println("Game over");
+   
   }
  
   // outprints instructions 
@@ -165,7 +292,7 @@ print2DArray (gameWorld);
     System.out.println("\tInstructions:"); 
     System.out.println("\tHunt the wumpus is a word based, hide and seek formatted game. You must enter a system of caves which create a 5 x 5 square"); 
     System.out.println("\tand hunt a mysterious creature called a wumpus, using 5 armor piercing arrows. All while avoiding hazards which give the"); 
-    System.out.println("\tplayer a text warning when you are next to one. These hazards include a pit which you will fell a breeze when near, Bats"); 
+    System.out.println("\tplayer a text warning when you are next to one. These hazards include a pit which you will feel a breeze when near, Bats"); 
     System.out.println("\twhich will transport you to a new location in the cave and is alerted by the flapping of wings, and finally the wumpus which"); 
     System.out.println("\tomits a horrible smell when you get close."); 
   }  
@@ -182,15 +309,28 @@ print2DArray (gameWorld);
 
   
   // Method to print 2D array
-  public static void print2DArray (String[][] gameWorld)
+  public static void print2DArray (String[][] gameWorld, Boolean visible)
   {
-    int numRow = gameWorld.length;
+   int numRow = gameWorld.length;
    int numCol = gameWorld[0].length;
     
     for (int i = 0; i < numRow; i++) {
     for (int j =0; j < numCol; j++) {
      
-      System.out.print(gameWorld[i][j] + "\t");
+      // if visible, print everything //
+      // if invisible, print only player position //
+      
+      if (gameWorld[i][j] == "W" && !visible) {
+         System.out.print("X\t");
+      }
+      else if (gameWorld[i][j] == "P" && !visible) {
+         System.out.print("X\t");
+      }
+      else if (gameWorld[i][j] == "B" && !visible) {
+         System.out.print("X\t");        
+      }
+      else 
+          System.out.print(gameWorld[i][j] + "\t" );
     }
     System.out.println("");
     System.out.println("");
