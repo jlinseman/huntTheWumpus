@@ -195,7 +195,7 @@ gameWorld[playerRowInd][playerColInd] = gameWorld[playerRowInd][playerColInd] = 
        gameover = true; 
      }
      
-    // if not gameover, upedate player position on board //
+    // if not gameover, update player position on board //
      if (!gameover) { 
         gameWorld[playerRowInd][playerColInd] = "O"; 
       }
@@ -260,7 +260,7 @@ gameWorld[playerRowInd][playerColInd] = gameWorld[playerRowInd][playerColInd] = 
       
       if (playerRowInd != 0) {
        // mark the spot you've come from with an X //
-       gameWorld[playerRowInd][playerColInd] = "X"; 
+       gameWorld[playerRowInd][playerColInd] = "+"; 
        playerRowInd = playerRowInd - 1; 
       }      
     }
@@ -268,7 +268,7 @@ gameWorld[playerRowInd][playerColInd] = gameWorld[playerRowInd][playerColInd] = 
     // move player left if you can //  
           if (playerColInd != 0) {
        // mark the spot you've come from with an X //
-       gameWorld[playerRowInd][playerColInd] = "X"; 
+       gameWorld[playerRowInd][playerColInd] = "+"; 
        playerColInd = playerColInd - 1; 
       }      
   
@@ -277,7 +277,7 @@ gameWorld[playerRowInd][playerColInd] = gameWorld[playerRowInd][playerColInd] = 
     // move player down if you can //  
       if (playerRowInd != 4) {
        // mark the spot you've come from with an X //
-       gameWorld[playerRowInd][playerColInd] = "X"; 
+       gameWorld[playerRowInd][playerColInd] = "+"; 
        playerRowInd = playerRowInd + 1; 
       }      
     }
@@ -286,7 +286,7 @@ gameWorld[playerRowInd][playerColInd] = gameWorld[playerRowInd][playerColInd] = 
     // move player right if you can //  
       if (playerColInd != 4) {
        // mark the spot you've come from with an X //
-       gameWorld[playerRowInd][playerColInd] = "X"; 
+       gameWorld[playerRowInd][playerColInd] = "+"; 
        playerColInd = playerColInd + 1; 
       }      
     }
@@ -297,6 +297,7 @@ gameWorld[playerRowInd][playerColInd] = gameWorld[playerRowInd][playerColInd] = 
       arrowColInd = playerColInd;
       arrowCount = arrowCount - 1;
       shotFired = true;
+      System.out.println("you shot an arrow upwards!");
     }  
     else if ( keypress.equals("J")) {
     // fire an arrow into the cell to the left //
@@ -304,6 +305,7 @@ gameWorld[playerRowInd][playerColInd] = gameWorld[playerRowInd][playerColInd] = 
       arrowColInd = playerColInd - 1;
       arrowCount = arrowCount - 1;
       shotFired = true;
+      System.out.println("you shot an arrow to the left!");
     }  
     else if ( keypress.equals("K")) {
     // fire an arrow into the cell below //
@@ -311,6 +313,7 @@ gameWorld[playerRowInd][playerColInd] = gameWorld[playerRowInd][playerColInd] = 
       arrowColInd = playerColInd;
       arrowCount = arrowCount - 1;
       shotFired = true;
+      System.out.println("you shot an arrow downwards!");
     }  
     else if ( keypress.equals("L")) {
     // fire an arrow into the cell to the right //
@@ -318,6 +321,7 @@ gameWorld[playerRowInd][playerColInd] = gameWorld[playerRowInd][playerColInd] = 
       arrowColInd = playerColInd + 1;
       arrowCount = arrowCount - 1;
       shotFired = true;
+      System.out.println("you shot an arrow to the right!");
     }  
              
              
